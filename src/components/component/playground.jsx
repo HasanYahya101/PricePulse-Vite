@@ -161,7 +161,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         setFiftyTwoWeekLow(summarydetail.fiftyTwoWeekLow.fmt);
 
         // now for historic data
-        const _url = 'https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data?symbol=AAPL';
+        const _url = `https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data?symbol=${testData}`;
         const _options = {
             method: 'GET',
             headers: {
@@ -189,6 +189,8 @@ function GraphData({ check, testData, setTestData, setCheck }) {
 
         const _JSONResponse = JSON.parse(_result);
         console.log("_JSON", _JSONResponse);
+
+        return;
 
         if (result.hasOwnProperty("Error Message")) {
             toast({
