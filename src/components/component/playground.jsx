@@ -12,6 +12,11 @@ import { Dialog } from "@/components/ui/dialog"
 import { DialogTrigger, DialogContent, DialogDescription, DialogClose, DialogTitle } from "@/components/ui/dialog"
 import { set } from "date-fns";
 
+function roundTo(num, decimalPlaces) {
+    var factor = Math.pow(10, decimalPlaces);
+    return Math.round(num * factor) / factor;
+}
+
 function LinuxTimestamptoMonth(timestamp) {
     let date = new Date(timestamp * 1000);
     let month = date.getMonth();    // 0-11
@@ -206,18 +211,18 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         var _month5 = _prices[123];
         var _month6 = _prices[154];
 
-        setData1High(_month1.high);
-        setData1Low(_month1.low);
-        setData2High(_month2.high);
-        setData2Low(_month2.low);
-        setData3High(_month3.high);
-        setData3Low(_month3.low);
-        setData4High(_month4.high);
-        setData4Low(_month4.low);
-        setData5High(_month5.high);
-        setData5Low(_month5.low);
-        setData6High(_month6.high);
-        setData6Low(_month6.low);
+        setData1High(roundTo(_month1.high, 5));
+        setData1Low(roundTo(_month1.low, 5));
+        setData2High(roundTo(_month2.high, 5));
+        setData2Low(roundTo(_month2.low, 5));
+        setData3High(roundTo(_month3.high, 5));
+        setData3Low(roundTo(_month3.low, 5));
+        setData4High(roundTo(_month4.high, 5));
+        setData4Low(roundTo(_month4.low, 5));
+        setData5High(roundTo(_month5.high, 5));
+        setData5Low(roundTo(_month5.low, 5));
+        setData6High(roundTo(_month6.high, 5));
+        setData6Low(roundTo(_month6.low, 5));
 
         if (result.hasOwnProperty("Error Message")) {
             toast({
@@ -317,6 +322,7 @@ function LineChart({ month1, month2, month3, month4, month5, month6, data1high, 
         setMaxY(maxY_);
         setMinY(minY_);
     }, [data1high, data1low, data2high, data2low, data3high, data3low, data4high, data4low, data5high, data5low, data6high, data6low]);
+
     const { toast } = useToast();
     return (
         (<div className="aspect-[9/4]">
