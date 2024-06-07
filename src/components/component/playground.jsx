@@ -83,6 +83,26 @@ function GraphData({ check, testData, setTestData, setCheck }) {
     const [fiftyTwoWeekHigh, setFiftyTwoWeekHigh] = useState("NULL");
     const [fiftyTwoWeekLow, setFiftyTwoWeekLow] = useState("NULL");
 
+    const [month1, setMonth1] = useState('');
+    const [month2, setMonth2] = useState('');
+    const [month3, setMonth3] = useState('');
+    const [month4, setMonth4] = useState('');
+    const [month5, setMonth5] = useState('');
+    const [month6, setMonth6] = useState('');
+
+    const [data1high, setData1High] = useState(0);
+    const [data1low, setData1Low] = useState(0);
+    const [data2high, setData2High] = useState(0);
+    const [data2low, setData2Low] = useState(0);
+    const [data3high, setData3High] = useState(0);
+    const [data3low, setData3Low] = useState(0);
+    const [data4high, setData4High] = useState(0);
+    const [data4low, setData4Low] = useState(0);
+    const [data5high, setData5High] = useState(0);
+    const [data5low, setData5Low] = useState(0);
+    const [data6high, setData6High] = useState(0);
+    const [data6low, setData6Low] = useState(0);
+
     async function Clicked() {
         if (check !== true) {
             toast({
@@ -202,7 +222,11 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                                 </div>
                             </div>
                             <div className="mt-6">
-                                <LineChart className="aspect-[9/4]" />
+                                <LineChart className="aspect-[9/4]" month1={month1} month2={month2} month3={month3} month4={month4} month5={month5} month6={month6}
+                                    data1high={data1high} data1low={data1low} data2high={data2high} data2low={data2low}
+                                    data3high={data3high} data3low={data3low} data4high={data4high} data4low={data4low}
+                                    data5high={data5high} data5low={data5low} data6high={data6high} data6low={data6low}
+                                />
                             </div>
                         </div>
                     </CardContent>
@@ -213,31 +237,33 @@ function GraphData({ check, testData, setTestData, setCheck }) {
     );
 }
 
-function LineChart(props) {
+function LineChart({ month1, month2, month3, month4, month5, month6, data1high, data1low, data2high, data2low, data3high, data3low, data4high, data4low, data5high, data5low, data6high, data6low }) {
+
+    const { toast } = useToast();
     return (
-        (<div {...props}>
+        (<div className="aspect-[9/4]">
             <ResponsiveLine
                 data={[
                     {
                         id: "Desktop",
                         data: [
-                            { x: "Jan", y: 43 },
-                            { x: "Feb", y: 137 },
-                            { x: "Mar", y: 61 },
-                            { x: "Apr", y: 145 },
-                            { x: "May", y: 26 },
-                            { x: "Jun", y: 154 },
+                            { x: month1, y: data1high },
+                            { x: month2, y: data2high },
+                            { x: month3, y: data3high },
+                            { x: month4, y: data4high },
+                            { x: month5, y: data5high },
+                            { x: month6, y: data6high },
                         ],
                     },
                     {
                         id: "Mobile",
                         data: [
-                            { x: "Jan", y: 60 },
-                            { x: "Feb", y: 48 },
-                            { x: "Mar", y: 177 },
-                            { x: "Apr", y: 78 },
-                            { x: "May", y: 96 },
-                            { x: "Jun", y: 204 },
+                            { x: month1, y: data1low },
+                            { x: month2, y: data2low },
+                            { x: month3, y: data3low },
+                            { x: month4, y: data4low },
+                            { x: month5, y: data5low },
+                            { x: month6, y: data6low },
                         ],
                     },
                 ]}
