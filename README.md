@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a simple Stock Price viewing application. Upon entering the Stock ID, it gets the price, marketcap and last 6 months of available data and displays them. It uses [YH-FINANCE](https://rapidapi.com/apidojo/api/yh-finance/playground) API from `RAPID API`.
+This is a simple Stock Price viewing application. Upon entering the Stock ID: it gets the price, marketcap and last 6 months of available data for that stock and displays them. It uses [YH-FINANCE](https://rapidapi.com/apidojo/api/yh-finance/playground) API from `RAPID API`.
 
 ## UI Library
 
