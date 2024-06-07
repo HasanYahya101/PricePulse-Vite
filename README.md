@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a classic Tic Tac Toe game. Players take turns placing their marks (either X or O) on a 3x3 grid. The first player to get 3 of their marks in a row (horizontally, vertically, or diagonally) wins the game.
+This is a simple Stock Price viewing application. Upon entering the Stock ID, it gets the price, marketcap and last 6 months of available data and displays them. It uses [YH-FINANCE](https://rapidapi.com/apidojo/api/yh-finance/playground) API from `RAPID API`.
 
 ## UI Library
 
