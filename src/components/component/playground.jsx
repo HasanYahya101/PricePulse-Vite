@@ -160,6 +160,36 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         setFiftyTwoWeekHigh(summarydetail.fiftyTwoWeekHigh.fmt);
         setFiftyTwoWeekLow(summarydetail.fiftyTwoWeekLow.fmt);
 
+        // now for historic data
+        const _url = 'https://yh-finance.p.rapidapi.com/stock/v3/get-historical-data?symbol=AAPL';
+        const _options = {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-key': 'b37f4bf8f6mshb21067d56d51b07p112cd6jsn90e370560ac1',
+                'x-rapidapi-host': 'yh-finance.p.rapidapi.com'
+            }
+        };
+
+        var _response = null;
+        var _result = null;
+
+        try {
+            _response = await fetch(url, options);
+            _result = await response.text();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: "Failed to fetch data",
+                variant: "destructive"
+            })
+            return;
+        }
+
+        const _JSONResponse = JSON.parse(_result);
+        console.log("_JSON", _JSONResponse);
+
         if (result.hasOwnProperty("Error Message")) {
             toast({
                 title: "Error: Invalid stock ID",
@@ -168,8 +198,6 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             })
             return;
         }
-
-
 
         toast({
             title: "Success",
