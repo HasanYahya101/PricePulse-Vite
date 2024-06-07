@@ -151,7 +151,19 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             })
             return;
         }
-        const JSONResponse = JSON.parse(result);
+        var JSONResponse = null;
+        try {
+            JSONResponse = JSON.parse(result);
+        }
+        catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: "Failed to fetch data",
+                variant: "destructive"
+            })
+            return;
+        }
         console.log("JSON", JSONResponse);
 
         const quoteType = JSONResponse.quoteType;
@@ -191,8 +203,19 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             })
             return;
         }
-
-        const _JSONResponse = JSON.parse(_result);
+        var _JSONResponse = null;
+        try {
+            _JSONResponse = JSON.parse(_result);
+        }
+        catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: "Failed to fetch data",
+                variant: "destructive"
+            })
+            return;
+        }
         console.log("_JSON", _JSONResponse);
 
         var _prices = _JSONResponse.prices;
