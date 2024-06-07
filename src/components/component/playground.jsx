@@ -163,7 +163,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
     }
 
     return (
-        <Dialog open={open} onClose={() => setOpen(false)} className="w-full max-w-2xl"
+        <Dialog className="w-full max-w-2xl" open={open} onClose={() => setOpen(false)} onOpenChange={(open) => setOpen(open)}
         >
             <div className="w-full flex justify-end">
                 <Button onClick={Clicked}
@@ -208,6 +208,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                     </CardContent>
                 </Card>
             </DialogContent>
+            <DialogClose />
         </Dialog>
     );
 }
