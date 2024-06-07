@@ -190,9 +190,45 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         const _JSONResponse = JSON.parse(_result);
         console.log("_JSON", _JSONResponse);
 
-        return;
+        var _prices = _JSONResponse.prices;
+
+        setMonth1(LinuxTimestamptoMonth(_prices[0].date).monthName);
+        setMonth2(LinuxTimestamptoMonth(_prices[32].date).monthName);
+        setMonth3(LinuxTimestamptoMonth(_prices[64].date).monthName);
+        setMonth4(LinuxTimestamptoMonth(_prices[96].date).monthName);
+        setMonth5(LinuxTimestamptoMonth(_prices[128].date).monthName);
+        setMonth6(LinuxTimestamptoMonth(_prices[160].date).monthName);
+
+        var _month1 = _prices[0];
+        var _month2 = _prices[32];
+        var _month3 = _prices[64];
+        var _month4 = _prices[96];
+        var _month5 = _prices[128];
+        var _month6 = _prices[160];
+
+        setData1High(_month1.high);
+        setData1Low(_month1.low);
+        setData2High(_month2.high);
+        setData2Low(_month2.low);
+        setData3High(_month3.high);
+        setData3Low(_month3.low);
+        setData4High(_month4.high);
+        setData4Low(_month4.low);
+        setData5High(_month5.high);
+        setData5Low(_month5.low);
+        setData6High(_month6.high);
+        setData6Low(_month6.low);
 
         if (result.hasOwnProperty("Error Message")) {
+            toast({
+                title: "Error: Invalid stock ID",
+                description: "Please enter a valid stock ID",
+                variant: "destructive"
+            })
+            return;
+        }
+
+        if (_result.hasOwnProperty("Error Message")) {
             toast({
                 title: "Error: Invalid stock ID",
                 description: "Please enter a valid stock ID",
