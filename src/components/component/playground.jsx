@@ -9,6 +9,13 @@ import { ResponsiveLine } from "@nivo/line";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog } from "@/components/ui/dialog";
 import { DialogTrigger, DialogContent, DialogDescription, DialogClose, DialogTitle } from "@/components/ui/dialog";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 function roundTo(num, decimalPlaces) {
     var factor = Math.pow(10, decimalPlaces);
@@ -85,6 +92,8 @@ function GraphData({ check, testData, setTestData, setCheck }) {
     const [marketcap, setMarketcap] = useState("NULL");
     const [fiftyTwoWeekHigh, setFiftyTwoWeekHigh] = useState("NULL");
     const [fiftyTwoWeekLow, setFiftyTwoWeekLow] = useState("NULL");
+
+    const [companydescription, setCompanyDescription] = useState("NULL");
 
     const [month1, setMonth1] = useState('');
     const [month2, setMonth2] = useState('');
@@ -167,6 +176,8 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         const quoteType = JSONResponse.quoteType;
         const priceData = JSONResponse.price;
         const summarydetail = JSONResponse.summaryDetail;
+        const summaryProfile = JSONResponse.summaryProfile;
+        setCompanyDescription(summaryProfile.longBusinessSummary);
 
         setLongName(quoteType.longName);
         setSymbol(quoteType.symbol);
@@ -295,7 +306,24 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                                 </span>
                             </div>
                         </div>
-                        <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="outline" className="p-2 rounded-md"
+                                    >
+                                        <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <h1 className="text-lg font-semibold p-4">{longName}</h1>
+                                    <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[90vh] p-4 max-h-[40vh] overflow-y-auto"
+                                        style={{ scrollbarWidth: "none" }}
+                                    >
+                                        {companydescription}
+                                    </div>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                     </CardHeader>
                     <CardContent>
                         <div className="grid gap-4">
