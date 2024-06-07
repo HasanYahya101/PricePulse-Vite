@@ -174,9 +174,9 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         var _result = null;
 
         try {
-            _response = await fetch(url, options);
-            _result = await response.text();
-            console.log(result);
+            _response = await fetch(_url, _options);
+            _result = await _response.text();
+            console.log(_result);
         } catch (error) {
             console.error(error);
             toast({
