@@ -304,7 +304,19 @@ function GraphData({ check, testData, setTestData, setCheck }) {
 }
 
 function LineChart({ month1, month2, month3, month4, month5, month6, data1high, data1low, data2high, data2low, data3high, data3low, data4high, data4low, data5high, data5low, data6high, data6low }) {
+    const [maxY, setMaxY] = useState(0);
+    const [minY, setMinY] = useState(0);
 
+    useEffect(() => {
+        const highData = [data1high, data2high, data3high, data4high, data5high, data6high];
+        const lowData = [data1low, data2low, data3low, data4low, data5low, data6low];
+
+        const maxY_ = Math.max(...highData) + 5;
+        const minY_ = Math.min(...lowData) - 5;
+
+        setMaxY(maxY_);
+        setMinY(minY_);
+    }, [data1high, data1low, data2high, data2low, data3high, data3low, data4high, data4low, data5high, data5low, data6high, data6low]);
     const { toast } = useToast();
     return (
         (<div className="aspect-[9/4]">
@@ -339,6 +351,7 @@ function LineChart({ month1, month2, month3, month4, month5, month6, data1high, 
                 }}
                 yScale={{
                     type: "linear",
+                    min: minY, max: maxY,
                 }}
                 axisTop={null}
                 axisRight={null}
