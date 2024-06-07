@@ -1,16 +1,14 @@
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { useState } from "react";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "../ui/use-toast";
 import { useEffect } from "react";
-import { TooltipTrigger, TooltipContent, Tooltip, TooltipProvider } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ResponsiveLine } from "@nivo/line"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Dialog } from "@/components/ui/dialog"
-import { DialogTrigger, DialogContent, DialogDescription, DialogClose, DialogTitle } from "@/components/ui/dialog"
-import { set } from "date-fns";
+import { ResponsiveLine } from "@nivo/line";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog } from "@/components/ui/dialog";
+import { DialogTrigger, DialogContent, DialogDescription, DialogClose, DialogTitle } from "@/components/ui/dialog";
 
 function roundTo(num, decimalPlaces) {
     var factor = Math.pow(10, decimalPlaces);
