@@ -17,6 +17,7 @@ This project was deployed to Github Pages and can be tested there. No servers or
 ![Screenshot 2024-06-07 172734](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/b589f81a-8943-440e-8590-60a3c2efc6f5)
 ![Screenshot 2024-06-07 172746](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/794f8757-cc18-4df5-883c-8bdab163331b)
 ![Screenshot 2024-06-07 172809](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/32301a01-6d65-44f1-a45c-535cfb74b0d7)
+![Screenshot 2024-06-07 173049](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/09c6faf1-23a6-4136-8f70-656f78da0573)
 ![Screenshot 2024-06-07 172831](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/1d797326-87fa-4319-b7d3-68977dac1a19)
 ![Screenshot 2024-06-07 172843](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/30705492-5017-4ece-9e7b-dd9af4c809af)
 
