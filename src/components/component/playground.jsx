@@ -12,15 +12,13 @@ import { Dialog } from "@/components/ui/dialog"
 import { DialogTrigger, DialogContent, DialogDescription, DialogClose, DialogTitle } from "@/components/ui/dialog"
 import { set } from "date-fns";
 
-function getKey(str) {
-    let newStr = "";
-    for (let i = 0; i < str.length; i++) {
-        newStr += String.fromCharCode(str.charCodeAt(i) - 1);
-    }
-    return newStr;
+function LinuxTimestamptoMonth(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let month = date.getMonth();    // 0-11
+    let year = date.getFullYear(); // YYYY
+    let monthName = new Intl.DateTimeFormat('en', { month: 'short' }).format(date); // Jan, Feb, Mar, ...
+    return { month, year, monthName };
 }
-
-const TWELVE_DATA_API_KEY = getKey("dg:366183g9c5fg69gec9c:3e31655g4");
 
 export function Playground() {
 
@@ -29,6 +27,13 @@ export function Playground() {
     const [check, setCheck] = useState(false);
 
     const [testData, setTestData] = useState("");
+
+    useEffect(() => {
+        toast({
+            title: "Warning",
+            description: "There is a hard limit of 250 requests per month for the free version of the API. Please don't exceed this limit. If it is exceeded, you won't be able to use the API for the rest of the month.",
+        });
+    }, []);
 
 
     return (
@@ -70,7 +75,13 @@ function GraphData({ check, testData, setTestData, setCheck }) {
 
     const { toast } = useToast();
     const [open, setOpen] = useState(false);
-    const [name, setName] = useState("NULL");
+
+    const [longName, setLongName] = useState("NULL");
+    const [symbol, setSymbol] = useState("NULL");
+    const [price, setPrice] = useState("NULL");
+    const [marketcap, setMarketcap] = useState("NULL");
+    const [fiftyTwoWeekHigh, setFiftyTwoWeekHigh] = useState("NULL");
+    const [fiftyTwoWeekLow, setFiftyTwoWeekLow] = useState("NULL");
 
     async function Clicked() {
         if (check !== true) {
@@ -89,10 +100,47 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             })
             return;
         }
-        let query = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${testData}&apikey=W03MYKLGQ6H6GS5F`
-        let response = await fetch(query);
-        let data = await response.json();
-        if (data.hasOwnProperty("Error Message")) {
+
+        const url = `https://yh-finance.p.rapidapi.com/stock/v2/get-summary?symbol=${testData}`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-key': 'b37f4bf8f6mshb21067d56d51b07p112cd6jsn90e370560ac1',
+                'x-rapidapi-host': 'yh-finance.p.rapidapi.com'
+            }
+        };
+
+        var response = null;
+        var result = null;
+
+        try {
+            response = await fetch(url, options);
+            result = await response.text();
+            console.log("res", result);
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: "Failed to fetch data",
+                variant: "destructive"
+            })
+            return;
+        }
+        const JSONResponse = JSON.parse(result);
+        console.log("JSON", JSONResponse);
+
+        const quoteType = JSONResponse.quoteType;
+        const priceData = JSONResponse.price;
+        const summarydetail = JSONResponse.summaryDetail;
+
+        setLongName(quoteType.longName);
+        setSymbol(quoteType.symbol);
+        setPrice(priceData.regularMarketPrice.fmt);
+        setMarketcap(priceData.marketCap.fmt);
+        setFiftyTwoWeekHigh(summarydetail.fiftyTwoWeekHigh.fmt);
+        setFiftyTwoWeekLow(summarydetail.fiftyTwoWeekLow.fmt);
+
+        if (result.hasOwnProperty("Error Message")) {
             toast({
                 title: "Error: Invalid stock ID",
                 description: "Please enter a valid stock ID",
@@ -100,113 +148,14 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             })
             return;
         }
-        console.log(data);
+
+
+
         toast({
             title: "Success",
             description: "Stock ID found",
             variant: "success"
         })
-
-        let mats = [];
-        let dates = [];
-        let open = [];
-        let high = [];
-        let low = [];
-        let close = [];
-        let volume = [];
-        for (const [key, value] of Object.entries(data["Monthly Adjusted Time Series"])) {
-            mats.push(value);
-            dates.push(key);
-        }
-        mats.forEach((element) => {
-            open.push(element["1. open"]);
-            high.push(element["2. high"]);
-            low.push(element["3. low"]);
-            close.push(element["4. close"]);
-            volume.push(element["6. volume"]);
-        });
-        console.log(dates);
-        console.log(open);
-        console.log(high);
-        console.log(low);
-        console.log(close);
-        console.log(volume);
-
-        // get current date in format YYYY-MM-DD
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let yyyy = today.getFullYear();
-        while (dd.length < 2) {
-            dd = '0' + dd;
-        }
-        while (mm.length < 2) {
-            mm = '0' + mm;
-        }
-        while (yyyy.length < 4) {
-            yyyy = '0' + yyyy;
-        }
-
-        // now get the last 6 months of data
-        let last6Months = [];
-        let last6MonthsDates = [];
-        let last6MonthsOpen = [];
-        let last6MonthsHigh = [];
-        let last6MonthsLow = [];
-        let last6MonthsClose = [];
-        let last6MonthsVolume = [];
-        for (let i = 0; i < 6; i++) {
-            last6Months.push(mats[i]);
-            last6MonthsDates.push(dates[i]);
-            last6MonthsOpen.push(open[i]);
-            last6MonthsHigh.push(high[i]);
-            last6MonthsLow.push(low[i]);
-            last6MonthsClose.push(close[i]);
-            last6MonthsVolume.push(volume[i]);
-        }
-        console.log("6dates", last6MonthsDates);
-        console.log("6open", last6MonthsOpen);
-        console.log("6high", last6MonthsHigh);
-        console.log("6low", last6MonthsLow);
-        console.log("6close", last6MonthsClose);
-        console.log("6volume", last6MonthsVolume);
-
-        // get the last 6 months of data
-        let last6MonthsDatahigh = [];
-        let last6MonthsDatalow = [];
-        let last6MonthsDataclose = [];
-        let last6MonthsDatavolume = [];
-        for (let i = 0; i < 6; i++) {
-            last6MonthsDatahigh.push({ x: last6MonthsDates[i], y: last6MonthsHigh[i] });
-            last6MonthsDatalow.push({ x: last6MonthsDates[i], y: last6MonthsLow[i] });
-            last6MonthsDataclose.push({ x: last6MonthsDates[i], y: last6MonthsClose[i] });
-            last6MonthsDatavolume.push({ x: last6MonthsDates[i], y: last6MonthsVolume[i] });
-        }
-
-        let new_query = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${testData}&apikey=W03MYKLGQ6H6GS5F`;
-        let new_response = await fetch(new_query);
-        let new_data = await new_response.json();
-        console.log("new_data", new_data);
-
-        let _dates = Object.keys(new_data["Time Series (Daily)"]).map(date => new Date(date));
-        let currentDate = new Date();
-        let closestDate = _dates.reduce((a, b) => Math.abs(b - currentDate) < Math.abs(a - currentDate) ? b : a);
-        let closestDateString = closestDate.toISOString().split('T')[0];
-        console.log("closestDateString", closestDateString);
-        let current_price = new_data["Time Series (Daily)"][closestDateString][`4. close`];
-        console.log("current_price", current_price);
-
-        let query__ = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${testData}&apikey=W03MYKLGQ6H6GS5F`;
-        let response__ = await fetch(query__);
-        let data__ = await response__.json();
-        console.log("data__", data__);
-
-        let name = data__["Name"];
-        setName(name);
-        console.log("name", name);
-        let _52_week_high_ = data__["52WeekHigh"];
-        let _52_week_low_ = data__["52WeekLow"];
-        let market_cap_ = data__["MarketCapitalization"];
 
         setOpen(true);
 
@@ -224,13 +173,13 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                 <Card className="w-full max-w-2xl mt-4">
                     <CardHeader className="flex items-center justify-between gap-4 pb-4">
                         <div className="grid gap-1">
-                            <div className="text-lg font-semibold">{name}</div>
+                            <div className="text-lg font-semibold">{longName}</div>
                             <div
                                 className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                                <span>$159.24</span>
+                                <span>${price}</span>
                                 <span
                                     className="px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-50 text-xs font-medium">
-                                    {testData}
+                                    {symbol}
                                 </span>
                             </div>
                         </div>
@@ -241,15 +190,15 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                             <div className="grid gap-2">
                                 <div className="flex items-center justify-between">
                                     <div className="font-medium">Stock Price</div>
-                                    <div className="font-medium">$159.24</div>
+                                    <div className="font-medium">${price}</div>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="font-medium">52-Week Range</div>
-                                    <div className="font-medium">$120.67 - $176.42</div>
+                                    <div className="font-medium">${fiftyTwoWeekHigh} - ${fiftyTwoWeekLow}</div>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <div className="font-medium">Market Cap</div>
-                                    <div className="font-medium">$2.57T</div>
+                                    <div className="font-medium">${marketcap}</div>
                                 </div>
                             </div>
                             <div className="mt-6">
