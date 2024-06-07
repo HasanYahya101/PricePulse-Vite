@@ -315,12 +315,14 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
+
                                     <h1 className="text-lg font-semibold p-4">{longName}</h1>
-                                    <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[90vh] p-4 max-h-[40vh] overflow-y-auto"
+                                    <div className="text-sm text-gray-500 dark:text-gray-400 p-4 overflow-y-auto max-h-[40vh] w-full max-w-sm"
                                         style={{ scrollbarWidth: "none" }}
                                     >
                                         {companydescription}
                                     </div>
+
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
