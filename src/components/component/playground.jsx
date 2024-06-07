@@ -200,11 +200,11 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         setMonth6(LinuxTimestamptoMonth(_prices[160].date).monthName);
 
         var _month1 = _prices[0];
-        var _month2 = _prices[32];
-        var _month3 = _prices[64];
-        var _month4 = _prices[96];
-        var _month5 = _prices[128];
-        var _month6 = _prices[160];
+        var _month2 = _prices[30];
+        var _month3 = _prices[61];
+        var _month4 = _prices[92];
+        var _month5 = _prices[123];
+        var _month6 = _prices[154];
 
         setData1High(_month1.high);
         setData1Low(_month1.low);
@@ -313,23 +313,23 @@ function LineChart({ month1, month2, month3, month4, month5, month6, data1high, 
                     {
                         id: "Desktop",
                         data: [
-                            { x: month1, y: data1high },
-                            { x: month2, y: data2high },
-                            { x: month3, y: data3high },
-                            { x: month4, y: data4high },
-                            { x: month5, y: data5high },
                             { x: month6, y: data6high },
+                            { x: month5, y: data5high },
+                            { x: month4, y: data4high },
+                            { x: month3, y: data3high },
+                            { x: month2, y: data2high },
+                            { x: month1, y: data1high },
                         ],
                     },
                     {
                         id: "Mobile",
                         data: [
-                            { x: month1, y: data1low },
-                            { x: month2, y: data2low },
-                            { x: month3, y: data3low },
-                            { x: month4, y: data4low },
-                            { x: month5, y: data5low },
                             { x: month6, y: data6low },
+                            { x: month5, y: data5low },
+                            { x: month4, y: data4low },
+                            { x: month3, y: data3low },
+                            { x: month2, y: data2low },
+                            { x: month1, y: data1low },
                         ],
                     },
                 ]}
