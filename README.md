@@ -1,4 +1,4 @@
-# Tic Tac Toe (React + Vite)
+# Price Pulse (React + Vite)
 
 ## Introduction
 
@@ -13,9 +13,13 @@ Radix UI and ShadCN components were used to create the UI of the website. Moreov
 This project was deployed to Github Pages and can be tested there. No servers or databases were used in this Project.
 
 ## Preview
-![Screenshot 2024-05-28 055755](https://github.com/HasanYahya101/Tic-Tac-Toe-Vite/assets/118683092/3a98c544-9970-4941-858f-2c3fc0973d08)
-![Screenshot 2024-05-28 055819](https://github.com/HasanYahya101/Tic-Tac-Toe-Vite/assets/118683092/c56ff7da-7e7e-4ea4-85de-01f950ee8618)
-![Screenshot 2024-05-28 055837](https://github.com/HasanYahya101/Tic-Tac-Toe-Vite/assets/118683092/28a03319-d429-4eca-9009-ef024c0603c6)
+![Screenshot 2024-06-07 172718](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/ed15277d-4ae3-47aa-9a99-9680af048c6c)
+![Screenshot 2024-06-07 172734](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/b589f81a-8943-440e-8590-60a3c2efc6f5)
+![Screenshot 2024-06-07 172746](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/794f8757-cc18-4df5-883c-8bdab163331b)
+![Screenshot 2024-06-07 172809](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/32301a01-6d65-44f1-a45c-535cfb74b0d7)
+![Screenshot 2024-06-07 172831](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/1d797326-87fa-4319-b7d3-68977dac1a19)
+![Screenshot 2024-06-07 172843](https://github.com/HasanYahya101/PricePulse-Vite/assets/118683092/30705492-5017-4ece-9e7b-dd9af4c809af)
+
 
 ## React + Vite
 
