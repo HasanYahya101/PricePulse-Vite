@@ -115,6 +115,8 @@ function GraphData({ check, testData, setTestData, setCheck }) {
     const [data6high, setData6High] = useState(0);
     const [data6low, setData6Low] = useState(0);
 
+    const [isClicked, setIsClicked] = useState(false);
+
     async function Clicked() {
         if (check !== true) {
             toast({
@@ -132,6 +134,8 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             })
             return;
         }
+
+        setIsClicked(true);
 
         const url = `https://yh-finance.p.rapidapi.com/stock/v2/get-summary?symbol=${testData}`;
         const options = {
@@ -156,6 +160,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                 description: "Failed to fetch data",
                 variant: "destructive"
             })
+            setIsClicked(false);
             return;
         }
         var JSONResponse = null;
@@ -169,6 +174,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                 description: "Failed to fetch data",
                 variant: "destructive"
             })
+            setIsClicked(false);
             return;
         }
         console.log("JSON", JSONResponse);
@@ -210,6 +216,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                 description: "Failed to fetch data",
                 variant: "destructive"
             })
+            setIsClicked(false);
             return;
         }
         var _JSONResponse = null;
@@ -223,6 +230,7 @@ function GraphData({ check, testData, setTestData, setCheck }) {
                 description: "Failed to fetch data",
                 variant: "destructive"
             })
+            setIsClicked(false);
             return;
         }
         console.log("_JSON", _JSONResponse);
@@ -274,6 +282,8 @@ function GraphData({ check, testData, setTestData, setCheck }) {
             return;
         }
 
+        setIsClicked(false);
+
         toast({
             title: "Success",
             description: "Stock ID found",
@@ -289,8 +299,13 @@ function GraphData({ check, testData, setTestData, setCheck }) {
         <Dialog className="w-full max-w-2xl" open={open} onClose={() => setOpen(false)} onOpenChange={(open) => setOpen(open)}
         >
             <div className="w-full flex justify-end">
-                <Button onClick={Clicked}
-                    className="mt-6 w-full">Search</Button>
+                {isClicked === false ? (
+                    <Button onClick={Clicked}
+                        className="mt-6 w-full">Search</Button>
+                ) : (
+                    <Button disabled
+                        className="mt-6 w-full">Search</Button>
+                )}
             </div>
             <DialogContent>
                 <Card className="w-full max-w-2xl mt-4">
